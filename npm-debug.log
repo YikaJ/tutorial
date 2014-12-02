@@ -6,23 +6,23 @@
 3 info using node@v0.10.33
 4 verbose node symlink D:\Program Files\nodejs\\node.exe
 5 verbose run-script [ 'prestart', 'start', 'poststart' ]
-6 info prestart microblog@0.0.0
-7 info start microblog@0.0.0
+6 info prestart Tutorials@0.0.0
+7 info start Tutorials@0.0.0
 8 verbose unsafe-perm in lifecycle true
-9 info microblog@0.0.0 Failed to exec start script
-10 error microblog@0.0.0 start: `node ./bin/www`
+9 info Tutorials@0.0.0 Failed to exec start script
+10 error Tutorials@0.0.0 start: `node ./bin/www`
 10 error Exit status 8
-11 error Failed at the microblog@0.0.0 start script.
-11 error This is most likely a problem with the microblog package,
+11 error Failed at the Tutorials@0.0.0 start script.
+11 error This is most likely a problem with the Tutorials package,
 11 error not with npm itself.
 11 error Tell the author that this fails on your system:
 11 error     node ./bin/www
 11 error You can get their info via:
-11 error     npm owner ls microblog
+11 error     npm owner ls Tutorials
 11 error There is likely additional logging output above.
 12 error System Windows_NT 6.1.7601
 13 error command "D:\\Program Files\\nodejs\\\\node.exe" "D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
-14 error cwd E:\git\microblog
+14 error cwd E:\git\tutorial
 15 error node -v v0.10.33
 16 error npm -v 1.4.28
 17 error code ELIFECYCLE

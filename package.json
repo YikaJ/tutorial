@@ -24,7 +24,7 @@
     "request": "*",
     "cookies": "*",
     "express-session": "*",
-    "connect-mongo":"*"
-
+    "connect-mongo":"*",
+    "crypto": "*"
   }
 }
