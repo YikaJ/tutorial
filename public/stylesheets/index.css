@@ -11,5 +11,11 @@
 
 /* 巨幕 */
  div.jumbotron {
+ 	  color: #EEE;
     padding: 100px 0;
+    background: url(../images/bg-index.jpg) no-repeat center;
   }
+
+div.row h2 a{
+	color: #C5242D;
+}

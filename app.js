@@ -29,15 +29,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());//解析客户端请求
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 /* session会话 */
-/*app.use(cookieSession({secret: settings.cookieSecret}))
+app.use(cookieSession({secret: settings.cookieSecret}));
 app.use(session({
     secret: settings.cookieSecret,
-    store: settings.db
-}))*/
+    /*key: settings.db,
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},*/
+    store: new MongoStore({db: settings.db})
+}));
+
 /*这里是设置了静态资源的路径，从上往下优先级*/
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+
 /*这里是路由*/
 app.use('/', routes);
 app.use('/tutorials', tutorials);

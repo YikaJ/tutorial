@@ -8,13 +8,17 @@
 </head>
 <body>
   <div class="container">
+    <% if(locals.error){ %>
+    <div class="alert alert-danger"><%= locals.error %></div>
+    <%}%>
     <form class="form-signin" role="form" method="post">
       <h2 class="form-signin-heading">登陆到 YikaJ 后台</h2>
       <br>
       <input name="username" type="text" class="form-control" placeholder="请输入账号" required autofocus>
       <input name="password" type="password" class="form-control" placeholder="请输入密码" required>
       <br>
-      <button class="btn btn-lg btn-info btn-block" type="submit"> 登 录 </button>
+      <button class="btn btn-lg btn-default btn-block" type="submit"> 登 录 </button>
+      <button class="btn btn-lg btn-primary btn-block" type="button"> 返 回 前 端 </button>
     </form>
   </div> <!-- /container -->
   <script src="/jquery/dist/jquery.min.js"></script>
