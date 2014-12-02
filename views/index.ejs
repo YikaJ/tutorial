@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>YikaJ - <%= title %></title>
+    <% include ./public/head %>
+    <link rel="stylesheet" href="./stylesheets/index.css">
+  </head>
+  <body>
+    <% include ./public/header %>
+    <!-- 巨幕 -->
+    <div class="jumbotron">
+      <div class="container">
+        <h2>欢迎来到 YikaJ 的网站搭建教程</h2>
+        <p>我将会使用 Node.js + Express + EJS + MongoDB 进行网站搭建</p>
+        <p><a class="btn btn-primary" href="/tutorials/main" role="button">立即开始 &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- 一行的几列 -->
+      <div class="row">
+        <div class="col-md-3">
+          <h2><a href="/tutorials/node">Node.js</a></h2>
+          <p><strong>Node.js</strong>是一个基于 Chrome JavaScript 运行时建立的一个平台，用来方便地搭建快速的 易于扩展的网络应用 Node.js 借助事件驱动，非阻塞 I/O 模型变得轻量和高效，非常适合 运行在分布式设备的数据密集型的实时应用。</p>
+          <p><a class="btn btn-default" href="/tutorials/node" role="button">查看更多 &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+          <h2><a href="/tutorials/express">Express</a></h2>
+          <p><strong>Express</strong>是一个简洁而灵活的 node.js Web应用框架, 提供一系列强大特性帮助你创建各种Web应用。丰富的HTTP工具以及来自Connect框架的中间件随取随用，创建强健、友好的API变得快速又简单</p>
+          <p><a class="btn btn-default" href="#" role="button">查看更多 &raquo;</a></p>
+       </div>
+        <div class="col-md-3">
+          <h2><a href="/tutorials/ejs">EJS</a></h2>
+          <p><strong>EJS</strong>是一个 JavaScript 模板库，用来从JSON数据中生成HTML字符串。与最初的 JavaScript 相比较，一些不太了解你的代码的人可以更容易地通过 EJS 模板代码看得懂你的代码。 让我们放松一下，一起来享受下令人激动的干净简洁的感觉。</p>
+          <p><a class="btn btn-default" href="#" role="button">查看更多 &raquo;</a></p>
+        </div>
+        <div class="col-md-3">
+          <h2><a href="/tutorials/mongodb">MongoDB</a></h2>
+          <p><strong>MongoDB</strong>,是目前在IT行业非常流行的一种非关系型数据库(NoSql),其灵活的数据存储方式,备受当前IT从业人员的青睐。Mongo DB很好的实现了面向对象的思想(OO思想),在MongoDB中 每一条记录都是一个Document对象。</p>
+          <p><a class="btn btn-default" href="#" role="button">查看更多 &raquo;</a></p>
+        </div>
+      </div>
+      <hr>
+      <h2><strong>教程模块版本号：</strong></h2>
+      <ul class="versionList">
+        <li>NodeJS: v0.10.33 <a href="http://www.embeddedjs.com/" target="_blank">官方网址</a></li>
+        <li>Express: v4.9.0 <a href="http://expressjs.com/" target="_blank">官方网址</a></li>
+        <li>EJS: v1.0 <a href="http://www.embeddedjs.com/" target="_blank">官方网址</a></li>
+        <li>MongoDB: V2.4.12 <a href="http://www.embeddedjs.com/" target="_blank">官方网址</a></li>
+      </ul>
+      <% include ./public/footer %>
+    </div>
+  <script src="./jquery/dist/jquery.min.js"></script>
+  <script src="./bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

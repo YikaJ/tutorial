@@ -1,0 +1,15 @@
+/* 段落缩进 */
+.paragraph {
+	text-indent: 28px;
+}
+
+/* 版本列表 */
+.versionList li{
+	padding: 5px 0;
+	font-size: 16px;
+}
+
+/* 巨幕 */
+ div.jumbotron {
+    padding: 100px 0;
+  }
