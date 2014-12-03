@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Yika - <%= title %></title>
+    <% include ../public/head %>
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/admin.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <% include ../public/admin/header%>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include ../public/admin/sidebar%>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">发布新的文章</h1>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

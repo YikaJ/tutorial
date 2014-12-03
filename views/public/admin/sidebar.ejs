@@ -1,0 +1,10 @@
+<div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li <% if(path === "/"){ %>class="active"<% } %>><a href="/admin">数据统计</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li <% if(path === "/edit"){ %>class="active"<% } %>><a href="/admin/edit">发布新的文章</a></li>
+            <li <% if(path === "/manage"){ %>class="active"<% } %>><a href="/admin/manage">管理您的文章</a></li>
+            <li <% if(path === "/draft"){ %>class="active"<% } %>><a href="/admin/draft">草稿箱的文章</a></li>
+          </ul>
+        </div>

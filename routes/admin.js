@@ -1,81 +1,150 @@
 var express = require("express");
-var crypto = require("crypto");
 var router = express.Router();
-
-/* 数据加密 */
-var md5 = function(data){
-	return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
-}
-
+var crypto = require("crypto");
 /* 数据库 */
-var User = require("../models/user");
+var Article = require("../models/article");
 
-/*登陆到后台系统*/
-var login_title = "登录";
 
-router.get("/login", function(req, res){
-	/* 从未登录返回的error */
-	if(req.session.error){
-		res.locals.error = req.session.error;
-		req.session.error = null;
-	}
 
-	/* 若已经登录的便直接跳转进管理页面 */
-	if(req.session.user){
-		res.redirect("/admin");
-	}
-
-	res.render("admin/login", {
-		title: login_title
-	})
-})
-
-/* redirect是总的路径 */
-
-/* find出来的是数组！！！！不能直接使用方法 */
-/* 若发生错误，一般不是重定向，而是重新渲染，并传入res.locals.message */
-router.post("/login", function(req, res){
-	User.findOne(({username: req.body['username']}), function(err, user){
-		if(err){
-			console.log(err);
-		}
-		/* 若不存在该用户 */
-		if(user === null){
-			res.locals.error = " 不存在该用户，请重新输入 ";
-			res.render("admin/login", {title: login_title});
-			return;
-		}
-
-		/* 判断密码对错 */
-		var pwd = md5(req.body['password']);
-		console.log(pwd);
-		if(req.body['username'] === user.username &&  pwd === user.password){
-			/* 传入session */
-			req.session.user = user;
-			return res.redirect("/admin");
-		}else{
-			res.locals.error = "密码有误，请重新输入";
-			res.render("admin/login", {title: login_title});
-			return;
-		}
-	})
-})
-
-/* 进入管理系统 */
-router.get("/", function(req, res, next){
-	if(!req.session.user){
+/* 总的权限控制 */
+router.get(/^\/*/, function(req, res, next){
+		if(!req.session.user){
 		req.session.error = "请先登录！";
-		return res.redirect("/admin/login");
+		return res.redirect("/login");
 	}
+	next();
+})
+
+/* 进入管理系统首页 */
+router.get("/", function(req, res, next){
 	res.render("admin/admin", {
-		title: "后台系统",
+		title: "数据统计",
+		path: req.path,
 		name: req.session.user.name
 	})
 })
+
+/* 进入管理系统的发布文章  View层 */
+router.get("/edit", function(req, res){
+	res.render("admin/edit", {
+		title: "发布新的文章",
+		path: req.path,
+		name: req.session.user.name
+	})
+})
+router.get("/manage", function(req, res){
+	res.render("admin/manage", {
+		title: "管理我的文章",
+		path: req.path,
+		name: req.session.user.name
+	})
+})
+router.get("/draft", function(req, res){
+	res.render("admin/draft", {
+		title: "草稿箱的文章",
+		path: req.path,
+		name: req.session.user.name
+	})
+})
+
+/* Control层 */
+var month = convertMonth((new Date().getMonth()) + 1);
+
+router.post("/edit", function(req, res, next){
+/* 先判断是否重复 */
+	Article.findOne(({title: req.body["title"]}), function(err, article){
+		if(err){
+			return console.log(err);
+		}
+		if(article){
+			res.locals.error = "错误：文章标题已经存在！";
+			res.render("admin/edit", {
+				title: "发布新的文章",
+				path: req.path,
+				name: req.session.user.name
+			})
+		}
+		else{
+			var article = new Article({
+				title: req.body["title"],
+				author: "YikaJ",
+				date: {
+					year: new Date().getFullYear(),
+					month: month,
+					date: new Date().getDate()
+				},
+				type: req.body["type"],
+				article: req.body["article"]
+			});
+			article.save();
+			res.locals.success = "成功发布";
+			res.render("admin/edit", {
+				title: "发布新的文章",
+				path: req.path,
+				name: req.session.user.name
+			})
+		}
+	})
+});
+
+
 /* 处理logout */
 router.get("/logout", function(req, res){
 	req.session = null;
-	return res.redirect("/admin/login");
+	return res.redirect("/login");
 })
 
 module.exports = router;
+
+
+/////////////////////小函数///////////////////////////////////////
+
+
+
+/* 数据加密 */
+function md5(data){
+	return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
+}
+
+
+/* 转化月份 */
+function convertMonth(month){
+	switch (month){
+		case 1:
+			return "January"
+			break;
+		case 2:
+			return "February"
+			break;
+		case 3:
+			return "March"
+			break;
+		case 4:
+			return "April"
+			break;
+		case 5:
+			return "May"
+			break;
+		case 6:
+			return "June"
+			break;
+		case 7:
+			return "July"
+			break;
+		case 8:
+			return "August"
+			break;
+		case 9:
+			return "September"
+			break;
+		case 10:
+			return "October"
+			break;
+		case 11:
+			return "November"
+			break;
+		case 12:
+			return "December"
+			break;
+	}
+}
