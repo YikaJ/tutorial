@@ -24,13 +24,19 @@ router.get("/", function(req, res, next){
 	})
 })
 
-/* 进入管理系统的发布文章  View层 */
+/* 进入管理系统的文章  View层 */
 router.get("/edit", function(req, res){
 	res.render("admin/edit", {
 		title: "发布新的文章",
 		path: req.path,
 		name: req.session.user.name
 	})
+})
+
+Article.find({}, function(err, article){
+	if(err){
+		console.log(err);
+	}
 })
 router.get("/manage", function(req, res){
 	res.render("admin/manage", {
@@ -49,7 +55,6 @@ router.get("/draft", function(req, res){
 
 /* Control层 */
 var month = convertMonth((new Date().getMonth()) + 1);
-
 router.post("/edit", function(req, res, next){
 /* 先判断是否重复 */
 	Article.findOne(({title: req.body["title"]}), function(err, article){

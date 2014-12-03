@@ -21,8 +21,8 @@ var User = mongoose.model("User", UserSchema);
 var md5 = function(data) {
     return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 }
-var pwd = md5("123456");
+var pwd = md5("5710569");
 console.log(pwd);
-(new User({username: "jimkelvin", password: pwd, name: "朱奕嘉"})).save();*/
+(new User({username: "jimklose", password: pwd, name: "YikaJ"})).save();*/
 
 module.exports = User;

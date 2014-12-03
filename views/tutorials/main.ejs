@@ -13,14 +13,13 @@
       <div class="row">
         <div class="col-sm-8 blog-main">
           <div class="blog-post">
-
-            <p>这一次也是本小白第一次用Node的搭建，若有哪里不妥的地方，希望大牛多多指导，指正错误。关于各个部分的原理，我并不会探究得太深，而是一套快速上手的流程。</p>
-            <hr>
-            <p>好，正式开始我们的教程吧！这一套课程是面向新手小白的，希望可以帮助到大家更快的进入到Node的世界，搭建属于自己的个人网站。最近我看了《Node.js开发指南》这一本书。这一本实战性很强，全书也充满趣味。但是有一个非常困扰的事就是，书里所介绍的各个工具的版本放在2014年已经太旧了，书中大部分代码也已经不能正常跑通了。所以我认为有必要重新梳理一遍，使用 Node.js 进行 Web 后端开发。</p>
-            <p>这一次我会分成四个部分按顺序进行讲解:</p>
-            <ol>
-              <li><a href="/tutorials/node">Node.js </a>在那里，我会说一下如何安装配置Node，并且学会通过npm安装需要的模块。然后我们进行一个快速入门的小训练，最后做个小小的总结，结束Node.Js的入门课程</li>
-            </ol>
+            <h2><%= articleTitle %></h2>
+            <p class="blog-post-meta"><%= pubTime %> by
+            <a href="http://www.cnblogs.com/YikaJ/">
+              YikaJ
+            </a>
+            </p>
+            <%- article %>
           </div>
           <!--留言板模块-->
           <% include ../public/blog/messageBorad %>

@@ -5,7 +5,7 @@ var ArticleSchema = new Schema({
 	title: {type: String, unique: true},
 	author: String,
 	date: {year: Number, month: String, date: Number},
-	type: {type: String, unique: true},
+	type: {type: String},
 	article: String
 });
 
