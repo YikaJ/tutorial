@@ -23,8 +23,20 @@
             <hr>
             <nav>
               <ul class="pager">
-                <li><a href="#"><-上一篇</a></li>
-                <li class="pull-right"><a href="#">下一篇-></a></li>
+                <li>
+                    <% if(prePage){ %>
+                    <a href=<%= prePage %>>上一篇</a>
+                    <% }else{ %>
+                    <a>第一篇</a>
+                    <% } %>
+                </li>
+                <li class="pull-right">
+                    <% if(nextPage){ %>
+                    <a href=<%= nextPage %>>下一篇</a>
+                    <% }else{ %>
+                    <a>最后一篇</a>
+                    <% } %>
+                </li>
               </ul>
             </nav>
           </div>

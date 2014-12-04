@@ -1,14 +1,17 @@
 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
             <h4>关于 YikaJ</h4>
-            <p>Blog: http://www.cnblogs.com/YikaJ/</p>
-            <p>Github: https://github.com/YikaJ</p>
-            <p>(尼玛里面什么都没有！)</p>
+            <p>Blog: <a href="http://www.cnblogs.com/YikaJ/">http://www.cnblogs.com/YikaJ/</a></p>
+            <p>Github: <a href="http://www.cnblogs.com/YikaJ/">https://github.com/YikaJ</a></p>
+            <p>联系方式: 547179699@qq.com</p>
+            <p>（用Gmail还要翻墙！）</p>
           </div>
           <div class="sidebar-module">
             <h4><%= title %></h4>
-            <ol class="list-unstyled">
-              <li><a href="#"><%= articleTitle %></a></li>
+            <ol class="list-styled">
+              <% for(var i = 0, len = listArticles.length; i < len; i++){ %>
+              <li><a href=<%= pagePath + i %>><%= listArticles[i].title %></a></li>
+              <% } %>
             </ol>
           </div>
           <div class="sidebar-module">
