@@ -3,12 +3,74 @@ var router = express.Router();
 var crypto = require("crypto");
 /* 数据库 */
 var User = require("../models/user");
+var Article = require("../models/article");
 
 /*获取首页*/
 router.get("/", function(req, res){
-	res.render("index", {
-		title: "How to build",
-		path: req.path
+	// var firstArticle = [];
+	var main_href = "/tutorials/main";
+	var node_href = "/tutorials/node";
+	var express_href = "/tutorials/express";
+	var ejs_href = "/tutorials/ejs";
+	var mongodb_href = "/tutorials/mongodb";
+
+	// Article.find({}, function(err, articles){
+	// 	if(err){
+	// 		return console.log(err);
+	// 	}
+	// 	for(var i = 0, len = articles.length; i < len; i++){
+	// 		/* 防止闭包陷阱 */
+	// 		(function(i){
+	// 			Article.findOne({type: articles[i].type}, function(err, article){
+	// 				if(err){
+	// 					return console.log(err);
+	// 				}else{
+	// 					firstArticle.push(article);
+	// 				}
+	// 			})
+	// 		})(i);
+	// 	}
+		/* 利用setTimeout来模拟同步 */
+		// setTimeout(function(){
+		// 	for(var i = 0, len = firstArticle.length; i < len; i++){
+		// 		switch(firstArticle[i].type){
+		// 			case "main":
+		// 				main_href = "/tutorials/main?id=" + firstArticle[i]._id;
+		// 			break;
+		// 			case "Node":
+		// 				node_href = "/tutorials/node?id=" + firstArticle[i]._id;
+		// 			break;
+		// 			case "Express":
+		// 				express_href = "/tutorials/express?id=" + firstArticle[i]._id;
+		// 			break;
+		// 			case "Ejs":
+		// 				ejs_href = "/tutorials/ejs?id=" + firstArticle[i]._id;
+		// 			break;
+		// 			case "MongoDB":
+		// 				mongodb_href = "/tutorials/mongodb?id=" + firstArticle[i]._id;
+		// 			break;
+		// 		}
+		// 	}
+			/* 渲染模版 */
+		// 	res.render("index", {
+		// 		title: "How to build",
+		// 		path: req.path,
+		// 		main_href: main_href,
+		// 		node_href: node_href,
+		// 		express_href: express_href,
+		// 		ejs_href: ejs_href,
+		// 		mongodb_href: mongodb_href
+		// 	})
+		// }, 0)
+	// })
+	res.render("index",{
+				title: "How to build",
+				path: req.path,
+				main_href: main_href,
+				node_href: node_href,
+				express_href: express_href,
+				ejs_href: ejs_href,
+				mongodb_href: mongodb_href
 	})
 });
 

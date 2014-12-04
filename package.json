@@ -25,6 +25,7 @@
     "cookies": "*",
     "express-session": "*",
     "connect-mongo":"*",
-    "crypto": "*"
+    "crypto": "*",
+    "markdown": "*"
   }
 }

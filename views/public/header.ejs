@@ -7,19 +7,19 @@
 						<a href="/" class="navbar-brand a-homepage">YikaJ-首页</a>
 					</li>
 					<li <% if(path==="/main"){ %> class="active" <% } %>>
-						<a href="/tutorials/main">前言</a>
+						<a href=<%= main_href %>>前言</a>
 						</li>
           <li <% if(path==="/node"){ %> class="active" <% } %>>
-          	<a href="/tutorials/node">Node.js</a>
+          	<a href=<%= node_href %>>Node.js</a>
           </li>
           <li <% if(path==="/express"){ %> class="active" <% } %>>
-          	<a href="/tutorials/express">Express</a>
+          	<a href=<%= express_href %>>Express</a>
           </li>
           <li <% if(path==="/ejs"){ %> class="active" <% } %>>
-          	<a href="/tutorials/ejs">EJS</a>
+          	<a href=<%= ejs_href %>>EJS</a>
           </li>
           <li <% if(path==="/mongodb"){ %> class="active" <% } %>>
-          	<a href="/tutorials/mongodb">MongoDB</a>
+          	<a href=<%= mongodb_href %>>MongoDB</a>
           </li>
 				</ul>
 			</div>

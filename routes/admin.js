@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var crypto = require("crypto");
+
 /* 数据库 */
 var Article = require("../models/article");
 
@@ -24,7 +25,10 @@ router.get("/", function(req, res, next){
 	})
 })
 
-/* 进入管理系统的文章  View层 */
+
+/* 数据库进行查 */
+
+/* edit编辑发布 */
 router.get("/edit", function(req, res){
 	res.render("admin/edit", {
 		title: "发布新的文章",
@@ -33,18 +37,71 @@ router.get("/edit", function(req, res){
 	})
 })
 
-Article.find({}, function(err, article){
-	if(err){
-		console.log(err);
-	}
-})
-router.get("/manage", function(req, res){
-	res.render("admin/manage", {
-		title: "管理我的文章",
-		path: req.path,
-		name: req.session.user.name
+/* modify修改 */
+router.get("/modify", function(req, res){
+	/* 获取参数中的id */
+	var id = req.query["id"];
+	Article.findById(id, function(err, article){
+		if(err){
+			return console.log(err);
+		}
+		if(!article){
+			res.redirect("/admin/edit");
+		}else{
+			res.locals.form = {
+				articleTitle: article.title,
+				type: article.type,
+				article: article.article
+			}
+			res.locals.id = article._id;
+			res.render("admin/modify", {
+				title: "修改我的文章",
+				path: req.path,
+				name: req.session.user.name
+			})
+		}
 	})
 })
+
+/* manage管理页面 */
+router.get("/manage", function(req, res){
+	var articleTitles = [];   //文章标题
+	var types = [];           //文章类型
+	var pubTimes = [];        //发布时间
+	var modify_hrefs = [];    //修改文章
+	var delete_hrefs = [];    //删除文章
+
+	Article.find({}, function(err, articles){
+		if(err){
+			return console.log(err);
+		}
+		if(articles.length === 0){
+			articleTitles.push("暂无记录");
+			types.push("暂无记录");
+		}else{
+			for(var i = 0, len = articles.length; i < len; i++){
+				articleTitles.push(articles[i].title);
+				types.push(articles[i].type);
+				pubTimes.push(articles[i].date.month + " " + articles[i].date.date + ", " + articles[i].date.year);
+				var _id = articles[i]._id
+				modify_hrefs.push("/admin/modify?id=" + _id);
+				delete_hrefs.push("/admin/delete?id=" + _id);
+			}
+		}
+		res.render("admin/manage", {
+			title: "管理我的文章",
+			path: req.path,
+			name: req.session.user.name,
+			articleTitles: articleTitles,
+			types: types,
+			pubTimes: pubTimes,
+			modify_hrefs: modify_hrefs,
+			delete_hrefs: delete_hrefs
+		})
+	})
+})
+
+/* 草稿箱 */
 router.get("/draft", function(req, res){
 	res.render("admin/draft", {
 		title: "草稿箱的文章",
@@ -53,10 +110,10 @@ router.get("/draft", function(req, res){
 	})
 })
 
-/* Control层 */
-var month = convertMonth((new Date().getMonth()) + 1);
+/* 与数据库进行增删改 */
+
+/* 新发布,存入数据库 */
 router.post("/edit", function(req, res, next){
-/* 先判断是否重复 */
 	Article.findOne(({title: req.body["title"]}), function(err, article){
 		if(err){
 			return console.log(err);
@@ -70,6 +127,7 @@ router.post("/edit", function(req, res, next){
 			})
 		}
 		else{
+			var month = convertMonth((new Date().getMonth()) + 1);
 			var article = new Article({
 				title: req.body["title"],
 				author: "YikaJ",
@@ -82,7 +140,7 @@ router.post("/edit", function(req, res, next){
 				article: req.body["article"]
 			});
 			article.save();
-			res.locals.success = "成功发布";
+			res.locals.success = "成功发布,可以继续编辑发布";
 			res.render("admin/edit", {
 				title: "发布新的文章",
 				path: req.path,
@@ -91,6 +149,31 @@ router.post("/edit", function(req, res, next){
 		}
 	})
 });
+
+/* 旧编辑,修改数据库 */
+router.post("/modify", function(req, res){
+	var article = {
+			title: req.body["title"],
+			type: req.body["type"],
+			article: req.body["article"]
+	}
+	Article.findOneAndUpdate({_id: req.query['id']}, article, function(err){
+		if(err){
+			return console.log(err)
+		}
+		res.redirect("/admin/manage");
+	})
+})
+
+/* 删除文章，数据库删除 */
+router.get("/delete", function(req, res){
+	Article.findOneAndRemove({_id: req.query["id"]}, function(err){
+		if(err){
+			return console.log(err);
+		}
+		res.redirect("/admin/manage");
+	})
+})
 
 
 /* 处理logout */
