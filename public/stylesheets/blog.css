@@ -2,6 +2,25 @@
 /*
  * Blog name and description
  */
+.commandTitle{
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+.command{
+  border-bottom: 1px solid #CCC;
+  padding: 10px;
+  padding-top: 0;
+}
+.command .commandInfo{
+  font-size: 12px;
+  color: #666;
+}
+.command .commandContent{
+  text-indent: 2em;
+  margin-top: 10px;
+  color: #333;
+}
+
 
 #messageBorad label{
   text-align: left;

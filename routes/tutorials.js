@@ -5,20 +5,30 @@ var markdown = require("markdown").markdown;
 
 
 
-var articleTitle = "";
-var pubTime = "";
-var post = "";
-var prePage = "";
-var nextPage = "";
-var listArticles = "";
-var pagePath = "";
+var articleTitle = "";        //文章标题
+var pubTime = "";             //发布时期
+var post = "";                //文章主体
+var prePage = "";             //上一篇地址
+var nextPage = "";            //下一篇地址
+var listArticles = "";        //文章目录
+var pagePath = "";            //第几篇
+var command = [];
+/* 导航栏 */
 var main_href = "/tutorials/main";
 var node_href = "/tutorials/node";
 var express_href = "/tutorials/express";
 var ejs_href = "/tutorials/ejs";
 var mongodb_href = "/tutorials/mongodb";
 
+var id = "";
+
 router.get(/^\/*/, function(req, res, next){
+	console.log(req.session.user);
+	/* 判断是否为管理员登录了 */
+	if(req.session.user){
+		res.locals.user = req.session.user.username;
+	}
+
 	/* 自己挖的坑！！！让你大小写随便写！ */
 	var type = "";
 	switch(req.path.slice(1)){
@@ -45,7 +55,7 @@ router.get(/^\/*/, function(req, res, next){
 			listArticles = article;
 			var len = article.length - 1;
 			var article = article[page];
-			console.log(len);
+			id = article && article._id;
 			if(err){
 				return console.log(err);
 			}
@@ -62,6 +72,7 @@ router.get(/^\/*/, function(req, res, next){
 				pubTime = article.date.month + " " + article.date.date + ", " +  article.date.year;
 				prePage = (page == 0)? "" : pagePath + (parseInt(page,10) - 1);
 		 		nextPage = (page == len)? "" : pagePath + (parseInt(page,10) + 1);
+		 		command = article.command;
 			}
 			next();
 	})
@@ -82,6 +93,7 @@ router.get("/main", function(req, res){
 				nextPage: nextPage,
 				listArticles: listArticles,
 				pagePath: pagePath,
+				command: command,
 				main_href: main_href,
 				node_href: node_href,
 				express_href: express_href,
@@ -102,6 +114,7 @@ router.get("/node", function(req, res){
 				nextPage: nextPage,
 				listArticles: listArticles,
 				pagePath: pagePath,
+				command: command,
 				main_href: main_href,
 				node_href: node_href,
 				express_href: express_href,
@@ -122,6 +135,7 @@ router.get("/express", function(req, res){
 				nextPage: nextPage,
 				listArticles: listArticles,
 				pagePath: pagePath,
+				command: command,
 				main_href: main_href,
 				node_href: node_href,
 				express_href: express_href,
@@ -142,6 +156,7 @@ router.get("/ejs", function(req, res){
 				nextPage: nextPage,
 				listArticles: listArticles,
 				pagePath: pagePath,
+				command: command,
 				main_href: main_href,
 				node_href: node_href,
 				express_href: express_href,
@@ -162,11 +177,36 @@ router.get("/mongodb", function(req, res){
 				nextPage: nextPage,
 				listArticles: listArticles,
 				pagePath: pagePath,
+				command: command,
 				main_href: main_href,
 				node_href: node_href,
 				express_href: express_href,
 				ejs_href: ejs_href,
 				mongodb_href: mongodb_href
 			})
+})
+
+
+/* 留言板 */
+router.post("/command", function(req, res){
+	var date = new Date();
+	console.log(req.body);
+  /* 数据库存储 */
+  Article.findById(id, function(err, obj){
+  	console.log(id);
+  	if(err){
+  		return console.log(err);
+  	}
+  	var command = req.body;
+  	command.time = time;
+  	obj.command.push(command);
+  	var _id = obj._id; //需要取出主键_id
+  	delete obj._id;    //再将其删除
+  	Article.update({_id:_id},{command: command},function(err){
+  		if(err){
+  			return console.log(err);
+  		}
+  	});
+  })
 })
 module.exports = router;

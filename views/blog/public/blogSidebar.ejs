@@ -7,19 +7,11 @@
             <p>（用Gmail还要翻墙！）</p>
           </div>
           <div class="sidebar-module">
-            <h4><%= title %></h4>
+            <h4><%= title %>目录</h4>
             <ol class="list-styled">
               <% for(var i = 0, len = listArticles.length; i < len; i++){ %>
               <li><a href=<%= pagePath + i %>><%= listArticles[i].title %></a></li>
               <% } %>
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
             </ol>
           </div>
         </div><!-- /.blog-sidebar -->
