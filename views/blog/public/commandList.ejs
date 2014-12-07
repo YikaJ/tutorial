@@ -1,0 +1,19 @@
+<h3 class="commandTitle">评论列表</h3>
+<% for(var i = 0, len = command.length; i < len; i++){ %>
+  <div class="command">
+    <div>
+      <div class="commandInfo">
+        <span>#<%= i %>条 </span>
+        <span class="time"><%= command[i].time %></span>
+        <span> By <%= command[i].name %> </span>
+        <!-- 判断是否为管理员登录该网站 -->
+        <% if(locals.user){ %>
+          <a href="javascript:" meta-index=<%= i %> class="pull-right deleteCommand">删除</a>
+        <% } %>
+      </div>
+      <p class="commandContent">
+        <%= command[i].content %>
+      </p>
+    </div>
+  </div>
+<% } %>

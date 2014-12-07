@@ -49,11 +49,11 @@
                 <td><%= pubTimes[i] %></td>
                 <td>阅读量(20)</td>
                 <td>
-                  <a class="btn btn-info btn-sm" href=<%= delete_hrefs[i] %>>
+                  <a class="btn btn-info btn-sm" href=<%= modify_hrefs[i] %>>
                     修改文章
                   </a>
                   <% if (types[i] !== "main"){ %>
-                  <a class="btn btn-danger btn-sm" href=<%= modify_hrefs[i] %>>
+                  <a class="btn btn-danger btn-sm" href=<%= delete_hrefs[i] %>>
                     删除文章
                   </a>
                   <% } %>

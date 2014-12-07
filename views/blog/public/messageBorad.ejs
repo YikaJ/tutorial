@@ -1,4 +1,4 @@
-<form id="messageBorad" class="form-horizontal" role="form">
+<form id="messageBorad" class="form-horizontal" role="form" method="post" action=<%= "/tutorials/command?page=" + page %>>
 	<legend class="h3">可以留下您的评论</legend>
   <div class="form-group">
     <div class="col-sm-8">
@@ -19,7 +19,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-12">
-      <a href="javascript:" class="btn btn-default" id="command"> 发表评论 </a>
+      <input  class="btn btn-default" id="command" type="submit" value="发表评论">
     </div>
   </div>
 </form>
